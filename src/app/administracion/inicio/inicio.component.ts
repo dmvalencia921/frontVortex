@@ -9,6 +9,7 @@ import { Route, Router } from '@angular/router';
 })
 export class InicioComponent implements OnInit{
 
+  display : boolean = false;
 
   listPeliculas: IPelicula[]=[];
 
@@ -36,8 +37,8 @@ export class InicioComponent implements OnInit{
   }
 
   reservar(peli : Pelicula){
-    this.router.navigate(['/administracion/compra', peli.idPelicula]);
-    console.log("Estas alquilado esta : ", peli);
-    
+    if(peli){
+      this.display=true;
+    }
   }
 }

@@ -6,6 +6,7 @@ import { InicioComponent } from './inicio.component';
 import { CarouselModule } from 'primeng/carousel';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { ComponentesModule } from "../../componentes/componentes.module";
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ButtonModule } from 'primeng/button';
     InicioRoutingModule,
     CarouselModule,
     CardModule,
-    ButtonModule
-  ]
+    ButtonModule,
+    ComponentesModule
+]
 })
 export class InicioModule { }

@@ -1,0 +1,21 @@
+
+<p-dialog header="Crear función" [closable]="false" [modal]="true" 
+    [style]="{ width: '100%', 'max-width': '45rem' }">
+    <div [formGroup]="fg!">
+        <div class="grid pb-3">
+            <div class="col-8">
+                <p-inputNumber id="total" name="total" formControlName="total" inputId="currency-cop"
+                mode="currency" currency="COP" minFractionDigits="0" maxFractionDigits="0"
+                pTooltip="Valor de la hora del equipo." locale="es-CO" [style]="{ width: '100%' }" />
+                <br />
+                <small class="p-error"
+                    *ngIf="fg.get('total')?.errors?.['required'] && (fg.get('total')?.dirty || fg.get('total')?.touched)"> El valor de la funciones  obligatoria</small>
+            </div>
+        
+        </div>
+    </div>
+    <!-- <div class="flex justify-content-end gap-2">
+        <p-button label="Cancelar" severity="secondary" />
+        <p-button label="Crear"  />
+    </div> -->
+</p-dialog>

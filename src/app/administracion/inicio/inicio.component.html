@@ -1,0 +1,24 @@
+<p-carousel [value]="listPeliculas" [numVisible]="1" [numScroll]="1" [circular]="true">
+    <ng-template pTemplate="item" let-pelicula>
+        <div class="flex flex-column align-items-center">
+            <p-card [style]="{'width':'30rem'}">
+                <div class="flex justify-content-center">
+                    <img [src]="pelicula.imagen" alt="{{ pelicula.titulo }}"
+                        class="w-full max-w-20rem h-auto border-round" />
+                </div>
+                <div class="flex justify-content-center">
+                    <h3 class="mt-2">{{ pelicula.titulo }}</h3>
+                </div>
+                <div class="flex justify-content-center">
+                    {{ pelicula.sinopsis }}
+                </div>
+                <h4>Duración: {{ pelicula.duracion }} min</h4>
+                <div class="flex justify-content-end">
+                    <p-button icon="pi pi-shopping-cart" styleClass="ml-2" (click)="reservar(pelicula)" />
+            
+                </div>
+                
+            </p-card>
+        </div>
+    </ng-template>
+</p-carousel>

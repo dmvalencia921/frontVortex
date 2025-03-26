@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FuncionRoutingModule } from './funcion-routing.module';
-import { FuncionComponent } from './funcion.component';
+import { OtheruserRoutingModule } from './otheruser-routing.module';
+import { OtheruserComponent } from './otheruser.component';
 import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ToastModule } from 'primeng/toast';
@@ -19,15 +19,15 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MultiSelectModule } from 'primeng/multiselect';
-
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
-    FuncionComponent
+    OtheruserComponent
   ],
   imports: [
     CommonModule,
-    FuncionRoutingModule,
+    OtheruserRoutingModule,
     TableModule,
     ToastModule,
     ToolbarModule,
@@ -44,7 +44,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     DropdownModule,
     InputTextareaModule,
     InputNumberModule,
-    MultiSelectModule
+    MultiSelectModule,
+    CheckboxModule
   ]
 })
-export class FuncionModule { }
+export class OtheruserModule { }

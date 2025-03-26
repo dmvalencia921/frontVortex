@@ -8,6 +8,7 @@ import { Utilities } from '../../util/utilities';
 import { PeliculaService } from '../../services/pelicula.service';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+import { log } from 'console';
 
 @Component({
   selector: 'app-funcion',
@@ -20,11 +21,11 @@ export class FuncionComponent implements OnInit {
   listfunciones: IFuncion[] = [];
   listPeliculas: IPelicula[] = [];
   funcion?: IFuncion;
-  newFuncio?: Funcion = new Funcion;
+  newFuncion?: Funcion = new Funcion;
 
 
   peliculaSeleccionada?: Pelicula;
-
+  seleccionaHora?:string ;
 
   displayCrearFuncion: boolean = false;
   displayEditarFuncion: boolean = false;
@@ -32,6 +33,16 @@ export class FuncionComponent implements OnInit {
   mensaje = Utilities;
 
   opcionSeleccionada: any = null;
+
+  listaTiempos = [
+    { label: '8:00 AM - 10:00 AM', value: 1 },
+    { label:  '10:00 AM - 12:00 PM', value: 2 },
+    { label: '12:00 PM - 2:00 PM', value: 3 },
+    { label: '2:00 PM - 4:00 PM', value: 4 },
+    { label: '4:00 PM - 6:00 PM', value: 5 },
+    { label:  '7:00 PM - 9:00 PM', value: 6 },
+  ];
+ 
 
   listaOpciones = [
     {
@@ -53,10 +64,7 @@ export class FuncionComponent implements OnInit {
     fecha: new FormControl('', [
       Validators.required
     ]),
-    horaInicio: new FormControl('', [
-      Validators.required
-    ]),
-    horaFin: new FormControl('', [
+    hora: new FormControl('', [
       Validators.required
     ]),
     precio: new FormControl(0, [
@@ -80,7 +88,7 @@ export class FuncionComponent implements OnInit {
   listarFuncion() {
     this.funcionService.listarFuncion().subscribe({
       next: (datafuncion) => {
-        this.listfunciones = datafuncion;
+          this.listfunciones = datafuncion;   
       },
       error: (dataerror) => {
         console.log(dataerror)
@@ -101,6 +109,11 @@ export class FuncionComponent implements OnInit {
 
   buscarPelicula(pelicula: IPelicula) {
     this.peliculaSeleccionada = pelicula;
+  }
+
+
+  asignarHoras(horas : string){
+    this.seleccionaHora = horas;
   }
 
   abrirModal(opcion: any, funcion: IFuncion) {
@@ -125,19 +138,17 @@ export class FuncionComponent implements OnInit {
   }
   abrirCrearModal() {
     this.fg.reset();
-    this.newFuncio = new Funcion();
+    this.newFuncion = new Funcion();
     this.displayCrearFuncion = true;
   }
 
   abrirEditarModal(funcion: Funcion) {
-    let fecha = moment(this.newFuncio?.fecha).utc().format('YYYY-MM-DD');
+    let fecha = moment(this.newFuncion?.fecha).utc().format('YYYY-MM-DD');
     this.fg.reset();
-    this.newFuncio = { ...funcion };
+    this.newFuncion = { ...funcion };
     this.fg.get('sala')?.setValue(funcion.sala!);
     this.fg.get('fecha')?.setValue(fecha);
-
-    this.fg.get('horaInicio')?.setValue(funcion.horaInicio!);
-    this.fg.get('horaFin')?.setValue(funcion.horaFin!);
+    this.fg.get('hora')?.setValue(funcion.horas!);
     this.fg.get('precio')?.setValue(funcion.precio!);
     this.fg.get('peli')?.setValue(funcion.pelicula?.idPelicula!);
     this.displayEditarFuncion = true;
@@ -145,18 +156,15 @@ export class FuncionComponent implements OnInit {
 
   crearFuncion() {
 
-    this.newFuncio!.sala = this.fg.get('sala')?.value!;
-    this.newFuncio!.fecha = new Date(this.fg.get('fecha')?.value!);
-    this.newFuncio!.horaInicio = this.fg.get('horaInicio')?.value!;
-    this.newFuncio!.horaFin = this.fg.get('horaFin')?.value!;
-    this.newFuncio!.precio = Number(this.fg.get('precio')?.value!);
-    this.newFuncio!.pelicula = this.peliculaSeleccionada;
-
-    console.log("la funcion a guardar ", this.newFuncio);
+    this.newFuncion!.sala = this.fg.get('sala')?.value!;
+    this.newFuncion!.fecha = new Date(this.fg.get('fecha')?.value!);
+    this.newFuncion!.horas=  this.seleccionaHora;
+    this.newFuncion!.precio = Number(this.fg.get('precio')?.value!);
+    this.newFuncion!.pelicula = this.peliculaSeleccionada;
 
 
     if (this.fg.valid) {
-      this.funcionService.crearFuncion(this.newFuncio!).subscribe({
+      this.funcionService.crearFuncion(this.newFuncion!).subscribe({
         next: (datafuncion) => {
           this.messageService.add({
             severity: 'success',
@@ -182,21 +190,19 @@ export class FuncionComponent implements OnInit {
   }
 
   editarFuncion() {
-    this.newFuncio!.sala = this.fg.get('sala')?.value!;
-    this.newFuncio!.fecha = new Date(this.fg.get('fecha')?.value!);
-    this.newFuncio!.horaInicio = this.fg.get('horaInicio')?.value!;
-    this.newFuncio!.horaFin = this.fg.get('horaFin')?.value!;
-    this.newFuncio!.precio = Number(this.fg.get('precio')?.value!);
+    this.newFuncion!.sala = this.fg.get('sala')?.value!;
+    this.newFuncion!.fecha = new Date(this.fg.get('fecha')?.value!);
+    this.newFuncion!.horas = this.seleccionaHora;
+    this.newFuncion!.precio = Number(this.fg.get('precio')?.value!);
     const peliculaId = this.fg.get('peli')?.value;
   
-    this.newFuncio!.pelicula = this.listPeliculas.find(
+    this.newFuncion!.pelicula = this.listPeliculas.find(
       (pe)=> pe.idPelicula === peliculaId
     )!;
-        console.log("la funcion al editar ", this.newFuncio);
-
+        console.log("la funcion al editar ", this.newFuncion);
 
     if (this.fg.valid) {
-      this.funcionService.actualizarFuncion(this.newFuncio!).subscribe({
+      this.funcionService.actualizarFuncion(this.newFuncion!).subscribe({
         next: (datafuncion) => {
           this.messageService.add({
             severity: 'success',

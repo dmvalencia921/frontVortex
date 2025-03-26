@@ -19,11 +19,11 @@ export class FuncionService {
   }
 
   public listarFuncion () :Observable<IFuncion[]>{
-    return this.http.get<IFuncion[]>(this.urlServicio+'/listarFuncioes');
+    return this.http.get<IFuncion[]>(this.urlServicio+'/listarFunciones');
   }
 
-  public buscarPorIdPelicula(Ifuncion :number) :Observable<IFuncion[]>{
-    return this.http.get<IFuncion[]>(this.urlServicio+'/buscarPorpelicula/'+Ifuncion);
+  public buscarPorIdPelicula(Ifuncion :number) :Observable<IFuncion>{
+    return this.http.get(this.urlServicio+'/buscarPorpelicula/'+Ifuncion);
   }
 
   public actualizarFuncion (Ifuncion : IFuncion): Observable<IFuncion>{

@@ -24,13 +24,11 @@
     <div class="grid">
         <div class="col-offset-1 col-10">
             <p-table [value]="listfunciones" #tablaFunciones [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true"
-                [rows]="5" [globalFilterFields]="['pelicula.titulo', 'sala','horaInicio','fechaFin','precio']" [rowsPerPageOptions]="[5, 10]">
+                [rows]="5" [globalFilterFields]="['pelicula.titulo', 'sala','precio']" [rowsPerPageOptions]="[5, 10]">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th pSortableColumn="pelicula">titulo pelicula <p-sortIcon field="titulo"></p-sortIcon></th>
                         <th pSortableColumn="sala">sala<p-sortIcon field="sala"></p-sortIcon></th>
-                        <th pSortableColumn="horaInicio">hora inicio <p-sortIcon field="horaInicio"></p-sortIcon></th>
-                        <th pSortableColumn="horaFin">hora fin <p-sortIcon field="horaFin"></p-sortIcon></th>
                         <th pSortableColumn="precio">precio <p-sortIcon field="precio"></p-sortIcon></th>
                         <th>Acciones</th>
                     </tr>
@@ -39,8 +37,6 @@
                     <tr>
                         <td>{{ funcion.pelicula.titulo }}</td>
                         <td>{{ funcion.sala }}</td>
-                        <td>{{ funcion.horaInicio }}</td>
-                        <td>{{ funcion.horaFin }}</td>
                         <td>${{ funcion.precio  | number:'1.0-0'  }}</td>
                         <td>
                             <p-dropdown [options]="listaOpciones" class="no-pointer" optionLabel="nombre"
@@ -108,27 +104,19 @@
                     duracion es obligatoria</small>
             </div>
             <div class="col-4 flex align-items-center">
-                <label for="horaInicio" class="font-semibold w-6rem">Hora inicio:<span class="text-danger">*</span></label>
+                <label for="fecha" class="font-semibold w-6rem">Fecha:<span class="text-danger">*</span></label>
             </div>
             <div class="col-8">
-                <input pInputText   class="flex-grow-1 w-full" id="horaInicio" autocomplete="off"
-                    formControlName="horaInicio" pTooltip="Ingrese la hora  de inicio de la pelicula"/> 
-                <br />
+                <p-dropdown id="hora" name="hora" optionLabel="label" [options]="listaTiempos"
+                (onChange)="asignarHoras($event.value)" formControlName="hora" optionValue="label"
+                appendTo="body" placeholder="Seleccione" class="flex-grow-1"
+                pTooltip="Seleccione la hpora con la cual se va a relacionar la funcion."
+                [style]="{ width: '100%' }"></p-dropdown> 
+                  <br />
                 <small class="p-error"
-                    *ngIf="fg.get('horaInicio')?.errors?.['required'] && (fg.get('horaInicio')?.dirty || fg.get('horaInicio')?.touched)">La
-                    hora de inicio es obligatoria</small>
-            </div>
-            <div class="col-4 flex align-items-center">
-                <label for="horaFin" class="font-semibold w-6rem">Hora Fin:<span class="text-danger">*</span></label>
-            </div>
-            <div class="col-8">
-                <input pInputText   class="flex-grow-1 w-full" id="horaFin" autocomplete="off"
-                    formControlName="horaFin" pTooltip="Ingrese la hora  de inicio de la pelicula"/> 
-                <br />
-                <small class="p-error"
-                    *ngIf="fg.get('horaFin')?.errors?.['required'] && (fg.get('horaFin')?.dirty || fg.get('horaFin')?.touched)">La
-                    hora de finalización es obligatoria</small>
-            </div>
+                    *ngIf="fg.get('duracion')?.errors?.['required'] && (fg.get('duracion')?.dirty || fg.get('duracion')?.touched)">La
+                    duracion es obligatoria</small>
+            </div>           
             <div class="col-4 flex align-items-center">
                 <label for="precio" class="font-semibold w-6rem">Precio:<span class="text-danger">*</span></label>
             </div>
@@ -189,31 +177,22 @@
                    showIcon  />
                 <br />
                 <small class="p-error"
-                    *ngIf="fg.get('duracion')?.errors?.['required'] && (fg.get('duracion')?.dirty || fg.get('duracion')?.touched)">La
-                    duracion es obligatoria</small>
+                    *ngIf="fg.get('fecha')?.errors?.['required'] && (fg.get('fecha')?.dirty || fg.get('fecha')?.touched)">La
+                    fecha  es obligatoria</small>
             </div>
             <div class="col-4 flex align-items-center">
-                <label for="horaInicio" class="font-semibold w-6rem">Hora inicio:<span class="text-danger">*</span></label>
+                <label for="fecha" class="font-semibold w-6rem">Fecha:<span class="text-danger">*</span></label>
             </div>
             <div class="col-8">
-                <input pInputText   class="flex-grow-1 w-full" id="horaInicio" autocomplete="off"
-                    formControlName="horaInicio" pTooltip="Ingrese la hora  de inicio de la pelicula"/> 
+                <p-dropdown id="hora" name="hora" optionLabel="label" [options]="listaTiempos"
+                (onChange)="asignarHoras($event.value)" formControlName="hora" optionValue="label"
+                appendTo="body" placeholder="Seleccione" class="flex-grow-1"
+                pTooltip="Seleccione la hpora con la cual se va a relacionar la funcion."
+                [style]="{ width: '100%' }"></p-dropdown> 
                 <br />
                 <small class="p-error"
-                    *ngIf="fg.get('horaInicio')?.errors?.['required'] && (fg.get('horaInicio')?.dirty || fg.get('horaInicio')?.touched)">La
-                    hora de inicio es obligatoria</small>
-            </div>
-            <div class="col-4 flex align-items-center">
-                <label for="horaFin" class="font-semibold w-6rem">Hora Fin:<span class="text-danger">*</span></label>
-            </div>
-            <div class="col-8">
-                <input pInputText   class="flex-grow-1 w-full" id="horaFin" autocomplete="off"
-                    formControlName="horaFin" pTooltip="Ingrese la hora  de inicio de la pelicula"/> 
-                <br />
-                <small class="p-error"
-                    *ngIf="fg.get('horaFin')?.errors?.['required'] && (fg.get('horaFin')?.dirty || fg.get('horaFin')?.touched)">La
-                    hora de finalización es obligatoria</small>
-            </div>
+                    *ngIf="fg.get('hora')?.errors?.['required'] && (fg.get('hora')?.dirty || fg.get('hora')?.touched)">Las horas son obligatoria</small>
+            </div>           
             <div class="col-4 flex align-items-center">
                 <label for="precio" class="font-semibold w-6rem">Precio:<span class="text-danger">*</span></label>
             </div>

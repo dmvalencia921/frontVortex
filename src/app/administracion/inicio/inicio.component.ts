@@ -11,6 +11,8 @@ export class InicioComponent implements OnInit{
 
   display : boolean = false;
 
+  pelicula ?: Pelicula;
+
   listPeliculas: IPelicula[]=[];
 
   constructor(
@@ -39,6 +41,7 @@ export class InicioComponent implements OnInit{
   reservar(peli : Pelicula){
     if(peli){
       this.display=true;
+      this.pelicula = peli;
     }
   }
 }

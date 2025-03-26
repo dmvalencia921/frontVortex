@@ -59,6 +59,10 @@ export class AppComponent implements OnInit {
         label: 'Funciones',
         routerLink: 'administracion/funcion',
       },
+      {
+        label: 'Usuarios',
+        routerLink: 'administracion/otheruser',
+      },
     ];
   };
 
@@ -67,8 +71,7 @@ export class AppComponent implements OnInit {
     this.usuarioService.buscarUsuarioPorUserName(username).subscribe({
       next:(dataUsuario)=>{
         this.isadmin = dataUsuario.rol == UtilConstants.ROL_ADMIN;  
-        console.log("es asmin ", this.isadmin);
-             
+                    
         this.nombreUsuario =dataUsuario.nombres + ' '+ dataUsuario.apellidos;
       }
     })

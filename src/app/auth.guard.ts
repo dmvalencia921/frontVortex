@@ -9,10 +9,13 @@ export const authMatch: CanMatchFn = (route, segments) => {
   let roleMatch = false;
 
   if (storageService.autenticado()) {
+
+   
     const userRoles = storageService.tipoUsuario();
     if (requiredRoles.length > 0 && userRoles.length > 0) {
       roleMatch = userRoles.some(userRole => requiredRoles.includes(userRole));
     }
+
     if (roleMatch || requiredRoles.length === 0) { // Permitir acceso si no se requieren roles
       return true;
     } else {

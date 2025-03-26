@@ -1,1 +1,41 @@
-<p>compra works!</p>
+<p-dialog header="Detalle compra" [(visible)]="dispay" [modal]="true" [closable]="false"   [style]="{'width': '45rem'}">
+    <ng-template pTemplate="content">
+        <div [formGroup]="fg!">
+            <div class="grid">
+                <div class="col-12 md:col-6">
+                    <h1>{{pelicula?.titulo}}</h1>
+                </div>
+                <div class="col-12 md:col-6">
+                    <P style="text-align: justify;">{{pelicula?.sinopsis}}</P>
+                </div>
+                  <div class="col-12 md:col-6">
+                    <label for="hora" class="font-semibold">Hora función:</label>
+                    <P>{{funcionPelicula?.horas}}</P>
+                  </div>
+                  <div class="col-12 md:col-6">
+                    <label for="hora" class="font-semibold">Valor función:</label>
+                    <P>${{funcionPelicula?.precio | number:'1.0-0' }}</P>
+                  </div>
+                  <div class="col-12 md:col-6">
+                    <label for="sillas" class="font-semibold">N° boletos:</label>
+                    <p-inputNumber id="sillas" name="sillas" inputStyleClass="flex-grow-1"
+                    (onInput)="obtenerValor()" formControlName="sillas" [min]="0" autocomplete="off" [showButtons]="true"
+                    [style]="{ width: '100%' }"></p-inputNumber>
+                  </div>
+                  <div class="col-12 md:col-6">
+                    <label for="sillas" class="font-semibold">Valor total:</label><br>
+                    <p-inputNumber id="valorPeli" name="valorPeli" formControlName="valorPeli" inputId="currency-cop"
+                    mode="currency" currency="COP" minFractionDigits="0" maxFractionDigits="0"
+                    pTooltip="Valor total de la compra" locale="es-CO" [style]="{ width: '100%' }" />
+                  </div>
+
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="flex justify-content-end gap-2">
+          <p-button label="Cancelar" severity="secondary" (click)="cerrarModal()" ></p-button>
+          <p-button [disabled]="fg!.invalid" label="Comprar"(click)="crearCompra()" ></p-button>
+        </div>
+      </ng-template>
+</p-dialog>

@@ -1,49 +1,58 @@
 <div class="header">
   <div class="grid">
     <div *ngIf="!autenticado" class="col-offset-1"></div>
+    <div *ngIf="!isadmin && autenticado" class="col-offset-1"></div>
     <div *ngIf="autenticado && isadmin" class="col-offset-1 col-1 pl-5 pt-6" pTooltip="Menú de parametrización">
       <div class="card flex justify-content-center  mr-8">
-        <p-sidebar  [(visible)]="sidebarVisible" class="sidebar-container" [ngClass]="{'collapsed': !sidebarVisible}"
-          modal="false">
+        <p-sidebar [(visible)]="sidebarVisible" class="sidebar-container" [ngClass]="{'collapsed': !sidebarVisible}" modal="false" >
           <h3>Parametrización</h3>
           <div class="flex overflow-y-auto">
-            <ul class="flex list-none p-1 m-0">
+            <ul class="flex list-none p-1 m-0" >
               <li>
-                <div pRipple pStyleClass="@next" enterClass="hidden" enterActiveClass="slidedown" leaveToClass="hidden"
+                <div
+                  pRipple
+                  pStyleClass="@next"
+                  enterClass="hidden"
+                  enterActiveClass="slidedown"
+                  leaveToClass="hidden"
                   leaveActiveClass="slideup"
-                  class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple">
+                  class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple"
+                >
                 </div>
-                <ul class="list-none p-0 m-0 overflow-hidden">
+                <ul class="list-none p-0 m-0 overflow-hidden" >
                   <li *ngFor="let i of items">
                     <div *ngIf="i.items; else noChildren">
-                      <div (click)="toggleItem(i)"
-                        class="flex align-items-start cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                      <div (click)="toggleItem(i)" class="flex align-items-start cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
                         <i class="pi pi-folder mr-2"></i>
                         <span class="font-medium no-justify">{{ i.label }}</span>
                         <i class="pi pi-chevron-down ml-auto"></i>
                       </div>
                       <ul *ngIf="i.expanded" class="list-none p-0 m-0 ml-3">
                         <li *ngFor="let subItem of i.items">
-                          <a pRipple
+                          <a
+                            pRipple
                             class="flex no-underline align-items-start cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-                            [href]="subItem.routerLink">
+                            [href]="subItem.routerLink"
+                          >
                             <i class="pi pi-link mr-2"></i>
                             <span class="font-medium no-justify">{{ subItem.label }}</span>
                           </a>
-                        </li>
+                        </li>    
                       </ul>
                     </div>
                     <ng-template #noChildren>
-                      <a pRipple
+                      <a
+                        pRipple
                         class="flex no-underline align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-                        [href]="i.routerLink">
+                        [href]="i.routerLink"
+                      >
                         <i class="pi pi-link mr-2"></i>
                         <span class="font-medium no-justify">{{ i.label }}</span>
                       </a>
                     </ng-template>
                   </li>
                 </ul>
-
+               
               </li>
             </ul>
           </div>
@@ -51,33 +60,46 @@
         <p-button (onClick)="toggleSidebar()" icon="pi pi-bars"></p-button>
       </div>
     </div>
-
-
-    <div class="col-1 md:col-1 xl:col-1 mr-8">
-      <a class="w-full" href="administracion/inicio"><img src="../assets/images/Logo.webp" /></a>
+    <div class="col-3 md:col-1 xl:col-1 mr-8">
+      <a class="w-full" href="administracion/inicio"><img src="../assets/images/logo.png" /></a>
     </div>
-   
-
-<div *ngIf="!autenticado" class="col-1"></div>
-
-    <div class="col-6 md:col-7 xl:col-4 pl-6 mr-0 ml-1">
-      <h1>
-        <span style="color: black">CINE VORTEX BIRD</span>
-     
+    <div *ngIf="!autenticado" class="col-1"></div>
+    <div *ngIf="autenticado" class="col-offset-2 col-6 md:col-7 xl:col-3 pt-5 ml-1 mr-1">
+      <h1  style="font-size: 3rem;">
+        <span style="color: black">VORTEX BIRD</span>
+        
+      </h1>
+    </div>
+    <div *ngIf="!autenticado" class="col-offset-2 col-6 md:col-7 xl:col-7 pt-5 ml-1 mr-1">
+      <h1 style="font-size: 3rem;">
+        <span style="color: black">VORTEX BIRD</span>
       </h1>
     </div>
     <div *ngIf="autenticado" class="col-8 md:col-6 xl:col-2 pl-6 pt-7 mr-2 md:mr-4 xl:mr-8">
       <h3>{{nombreUsuario}}</h3>
     </div>
-    <div class="flex justify-content-end xl:col-offset-0 md:col-offset-4 xl:col-1 pt-8" *ngIf="autenticado">
-      <p-button pRipple severity="success" icon="pi pi-sign-out" (click)="logout()" pTooltip="Cerrar sesión"></p-button>
+    <div class="flex justify-content-end xl:col-offset-0 md:col-offset-4 xl:col-2 pt-8" *ngIf="autenticado">
+      <p-button
+        pRipple
+        severity="success"
+        label="Cerrar sesión"
+        icon="pi pi-sign-out"
+        (click)="logout()"
+        pTooltip="Cerrar sesión"
+        styleClass="hidden xl:inline-flex"
+      ></p-button>
+      <p-button
+        pRipple
+        severity="success"
+        icon="pi pi-sign-out"
+        (click)="logout()"
+        pTooltip="Cerrar sesión"
+        styleClass="inline-flex xl:hidden"
+      ></p-button>
     </div>
   </div>
 </div>
-<!-- 
-<div class="pb-4 ">
-  <img width="100%" src="../assets/images/border-uniquindio.jpg" />
-</div> -->
+
 <div class="content-container" [ngClass]="{'shifted': sidebarVisible}">
   <router-outlet></router-outlet>
 </div>

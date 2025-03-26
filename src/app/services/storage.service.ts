@@ -21,7 +21,7 @@ export class StorageService {
     }
     return false;
   }
-  
+   
   tipoUsuario(): string[] {
     let valor = window.sessionStorage.getItem(llaveUsuario);
     if (valor) {
@@ -55,6 +55,7 @@ export class StorageService {
     else
       return "";
   }
+
 
   setSessionStorage(key: string, value: string): void {
     window.sessionStorage.setItem(key, value);

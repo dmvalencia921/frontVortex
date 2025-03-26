@@ -23,6 +23,15 @@
               Los apellidos son obligatorios
             </small>
           </div>
+
+          <!-- Telefono -->
+          <div class="col-12 md:col-6">
+            <label for="apellidos" class="font-semibold">Telefono:<span class="text-danger">*</span></label>
+            <input type="tel" placeholder="Ingresa tu número" formControlName="telefono" pattern="[0-9]{10}" class="w-full p-inputtext p-component" pTooltip="Número de celular.">
+            <small class="p-error" *ngIf="fg.get('telefono')?.invalid && fg.get('telefono')?.touched">
+              El telefono es obligatorio
+            </small>
+          </div>
   
           <!-- Usuario -->
           <div class="col-12">

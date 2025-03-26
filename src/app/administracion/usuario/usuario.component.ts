@@ -30,6 +30,9 @@ export class UsuarioComponent  {
     apellidos: new FormControl('',[
       Validators.required
     ]),
+    telefono: new FormControl('',[
+      Validators.required
+    ]),
     usuario: new FormControl('',[
       Validators.required
     ]),
@@ -41,6 +44,7 @@ export class UsuarioComponent  {
   crearUsuario(){
     this.newUsuario!.nombres = this.fg?.get('nombres')?.value!;
     this.newUsuario!.apellidos = this.fg?.get('apellidos')?.value!;
+    this.newUsuario!.telefono = this.fg?.get('telefono')?.value!;
     this.newUsuario!.usuario = this.fg?.get('usuario')?.value!;
     this.newUsuario!.clave = this.fg?.get('clave')?.value!;
     if(this.fg.valid){
